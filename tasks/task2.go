@@ -26,7 +26,6 @@ func Task2() {
 	var wg sync.WaitGroup
 
 	// Добавим в WaitGroup столько задач, сколько чисел в массиве
-	wg.Add(n)
 
 	/*
 		Создаем цикл по массиву
@@ -40,6 +39,8 @@ func Task2() {
 	*/
 
 	for _, value := range array {
+		// Будем добавлять по одной задаче в WaitGroup в цикле, чтобы обеспечить гибкость программы
+		wg.Add(1)
 
 		go func(value float64) {
 			fmt.Println(math.Pow(value, 2))
