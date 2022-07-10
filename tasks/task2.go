@@ -44,7 +44,7 @@ func Task2() {
 
 		go func(value float64) {
 			fmt.Println(math.Pow(value, 2))
-			wg.Done()
+			defer wg.Done()
 		}(value)
 	}
 

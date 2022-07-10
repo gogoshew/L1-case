@@ -45,7 +45,7 @@ func Task3() {
 
 		go func(value float64) {
 			sum += math.Pow(value, 2)
-			wg.Done()
+			defer wg.Done()
 		}(value)
 	}
 
