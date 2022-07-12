@@ -1,10 +1,12 @@
 package tasks
 
 import (
+	"context"
 	"fmt"
-	"sync"
 	"time"
 )
+
+const n = 10
 
 /*
 Разработать программу, которая будет последовательно отправлять значения в канал,
@@ -12,50 +14,31 @@ import (
 */
 
 func Task5() {
-	const n = 5
 
 	// Создаем небуфферезированный канал, поскольку запись и чтение будут синхронны
 	workerChan := make(chan int)
 
-	// Создаем таймер для установки времени продолжительности работы
-	timer := time.NewTimer(time.Second * n)
+	// Создаем контекст с тайм-аутом
+	ctx, _ := context.WithTimeout(context.Background(), time.Second*n)
 
-	// Используем WaitGroup для ожидания завершения работы воркера
-	wg := &sync.WaitGroup{}
-	wg.Add(1)
-
+	// Создаем аннонимную горутину для постоянной записи текущих секунд в канал
 	go func() {
 		for {
-			num, ok := <-workerChan
-			if ok {
-				// Канал открыт, ok = true
-				fmt.Printf("Значение, которое передал воркер, равняется: %d\n", num)
-			} else {
-				// Канал закрыт, ok = false
-				fmt.Printf("Канал закрыт, работа выполнена")
-
-				// Уменьшаем счетчик группы на 1
-				wg.Done()
-				return
-			}
-
+			workerChan <- time.Now().Second()
+			time.Sleep(time.Second)
 		}
 	}()
 
-	// Пишем основной цикл на 1000 итераций
-	for i := 1; i <= 1000; i++ {
-		//
+	// Создаем бесконечный цикл, в который помещаем блок select
+	// Когда case читает данные из workerChan печатаем результат
+	// Когда case получает данные из ctx.Done() завершаем работу горутины.
+	for {
 		select {
-
-		case <-timer.C:
+		case <-ctx.Done():
 			fmt.Println("Время вышло...")
-			close(workerChan)
 			return
-
-		default:
-			workerChan <- i
-			time.Sleep(time.Second)
+		case <-workerChan:
+			fmt.Printf("Результат: %d\n", <-workerChan)
 		}
 	}
-	wg.Wait()
 }
