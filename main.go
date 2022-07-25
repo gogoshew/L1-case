@@ -1,7 +1,5 @@
 package main
 
-import "L1_case/tasks"
-
 func main() {
 	//tasks.Task1()
 	//tasks.Task2()
@@ -28,5 +26,5 @@ func main() {
 	//tasks.Task23()
 	//tasks.Task24()
 	//tasks.Task25()
-	tasks.Task26()
+	//tasks.Task26()
 }

@@ -7,7 +7,7 @@ import "fmt"
 */
 
 func Task11() {
-	// Создадим 2 массива строк
+	// Создадим 2 слайса строк
 	firstArray := []string{"pen", "pineapple", "apple", "pen", "lol", "gofer"}
 	secondArray := []string{"apple", "orange", "pen", "go", "gofer", "apple", "go"}
 
@@ -21,8 +21,8 @@ func Task11() {
 
 }
 
-// Создадим функцию, которая будет заполнять мэп в виде ключ - строка из массива, значение - bool
-// Тем самым в мэп добавятся только уникальные элементы из массива
+// Создадим функцию, которая будет заполнять мэп в виде ключ - строка из слайса, значение - bool
+// Тем самым в мэп добавятся только уникальные элементы из слайса
 func createSet(array []string) map[string]bool {
 	set := make(map[string]bool)
 	for _, val := range array {

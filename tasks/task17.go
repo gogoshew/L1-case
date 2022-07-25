@@ -12,9 +12,9 @@ func Task17() {
 	findDigit := 58
 	result, count := binarySearch(sortedArray, findDigit)
 	if result < 0 {
-		fmt.Printf("%d отсутствует в массиве, введите другое число!\n", findDigit)
+		fmt.Printf("%d отсутствует в слайсе, введите другое число!\n", findDigit)
 	} else {
-		fmt.Printf("Число %d найдено в массиве на позиции %d на поиск ушло %d итераций \n\n", findDigit, result, count)
+		fmt.Printf("Число %d найдено в слайсе на позиции %d на поиск ушло %d итераций \n\n", findDigit, result, count)
 	}
 }
 
@@ -38,7 +38,7 @@ func binarySearch(ar []int, n int) (res int, count int) {
 			res += mid + 1
 		}
 	default: // ar[mid] == n
-		// По умолчанию, если искомый элемент равен среднему элементу массива
+		// По умолчанию, если искомый элемент равен среднему элементу слайса
 		res = mid
 	}
 
